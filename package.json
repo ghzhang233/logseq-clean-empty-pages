@@ -16,6 +16,7 @@
     "esbuild": "^0.18.0"
   },
   "logseq": {
+    "id": "logseq-clean-empty-pages",
     "main": "dist/index.js"
   }
 }
