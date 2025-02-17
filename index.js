@@ -64,6 +64,16 @@ const clearEmptyPagesAndJournals = async () => {
 };
 
 const main = () => {
+    logseq.useSettingsSchema([
+        {
+            key: "autoCleanOnStartup",
+            type: "boolean",
+            title: "Auto Clean on Startup",
+            description: "Automatically remove empty pages and journals when Logseq starts.",
+            default: false,
+        }
+    ]);
+
     logseq.provideModel({
         clearPages: clearEmptyPagesAndJournals
     });
@@ -71,7 +81,7 @@ const main = () => {
     logseq.App.registerUIItem("toolbar", {
         key: "clear-empty-pages",
         template: `
-        <a class="button" data-on-click="clean" title="Clean Empty Pages">
+        <a class="button" data-on-click="clearPages" title="Clean Empty Pages">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="3 6 5 6 21 6"></polyline>
@@ -83,6 +93,12 @@ const main = () => {
         </a>
     `
     });
+
+    // Run auto-clean if enabled in settings
+    if (logseq.settings?.autoCleanOnStartup) {
+        console.log("Running automatic empty page cleanup...");
+        clearEmptyPagesAndJournals();
+    }
 };
 
 logseq.ready(main).catch(console.error);
