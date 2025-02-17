@@ -3,5 +3,5 @@
     "description": "A Logseq plugin that automatically cleans up empty pages and journals.",
     "author": "ghzhang233",
     "repo": "ghzhang233/logseq-clean-empty-pages",
-    "icon": "logseq.png"
+    "icon": "icon.png"
 }
