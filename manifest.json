@@ -1,13 +1,7 @@
 {
-    "id": "_zeglkzer2",
-    "name": "logseq-clean-empty-pages",
-    "description": "A Logseq plugin that cleans up empty pages and journals.",
-    "version": "1.0.0",
+    "title": "Logseq Auto-Clean",
+    "description": "A Logseq plugin that automatically cleans up empty pages and journals.",
     "author": "ghzhang233",
-    "main": "dist/index.js",
-    "license": "MIT",
-    "icon": "logseq.png",
-    "repo": "",
-    "theme": false,
-    "minAppVersion": "0.9.14"
+    "repo": "ghzhang233/logseq-clean-empty-pages",
+    "icon": "logseq.png"
 }
