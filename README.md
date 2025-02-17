@@ -1,6 +1,6 @@
 # Logseq - Clear Empty Pages Plugin
 
-This Logseq plugin adds a button to remove all empty pages and journal entries.
+This Logseq plugin enables auto-removal of all empty pages and journals upon open. A button is also added to clean manually.
 
 ## Features
 
