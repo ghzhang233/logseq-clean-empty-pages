@@ -37,7 +37,6 @@ jobs:
           cp README.md package.json icon.png ${{ env.PLUGIN_NAME }}
           mv dist ${{ env.PLUGIN_NAME }}
           zip -r ${{ env.PLUGIN_NAME }}.zip ${{ env.PLUGIN_NAME }}
-          mv ${{ env.PLUGIN_NAME }}.zip ./
 
       - name: 🛠 Debug - List files after packaging
         run: ls -la
