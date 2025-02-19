@@ -33,7 +33,7 @@ jobs:
         run: mkdir -p dist
 
       - name: Build the plugin
-        run: yarn run build --verbose
+        run: yarn run build
 
       - name: Check if the build was successful
         run: ls -la dist
