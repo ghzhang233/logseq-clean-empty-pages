@@ -1,0 +1,67 @@
+name: Build and Release Logseq Plugin
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  push:
+    tags:
+      - "v*" # Triggers on version tags like v1.0.0
+
+jobs:
+  build:
+    name: Build Plugin
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build the plugin
+        run: yarn run build
+
+      - name: Zip the built files
+        run: |
+          cd dist
+          zip -r ../logseq-auto-clean-empty-pages.zip ./*
+          cd ..
+
+      - name: Upload built files as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: logseq-plugin
+          path: logseq-auto-clean-empty-pages.zip
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') # Only run for version tags
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download built artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: logseq-plugin
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: logseq-auto-clean-empty-pages.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
