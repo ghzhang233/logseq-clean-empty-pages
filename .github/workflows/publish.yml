@@ -60,7 +60,7 @@ jobs:
       - name: ⬇️ Download built artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.PLUGIN_NAME }}
+          name: ${{env.PLUGIN_NAME}}.zip
           path: .
 
       - name: 🛠 Debug - List downloaded files
