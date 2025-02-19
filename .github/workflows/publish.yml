@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - "v*" # Triggers on version tags like v1.0.0
+      - "v*" # Run on version tags (e.g., v1.0.0)
   pull_request:
     branches:
       - main
@@ -24,12 +24,19 @@ jobs:
         with:
           node-version: 18
           cache: 'yarn'
+          cache-dependency-path: yarn.lock
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Ensure dist directory exists
+        run: mkdir -p dist
+
       - name: Build the plugin
-        run: yarn run build
+        run: yarn run build --verbose
+
+      - name: Check if the build was successful
+        run: ls -la dist
 
       - name: Zip the built files
         run: |
