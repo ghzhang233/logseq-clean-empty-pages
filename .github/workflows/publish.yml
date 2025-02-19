@@ -10,6 +10,9 @@ on:
 env:
   PLUGIN_NAME: logseq-auto-clean-empty-pages
 
+permissions:  
+  contents: write  # ✅ This allows the workflow to create a release
+
 jobs:
   build:
     name: Build Plugin
@@ -44,7 +47,7 @@ jobs:
       - name: 📤 Upload build as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.PLUGIN_NAME }}.zip  # Explicitly set name with .zip
+          name: ${{ env.PLUGIN_NAME }}.zip
           path: ./${{ env.PLUGIN_NAME }}.zip
 
   release:
@@ -60,12 +63,12 @@ jobs:
       - name: ⬇️ Download built artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{env.PLUGIN_NAME}}.zip
+          name: ${{ env.PLUGIN_NAME }}.zip
           path: .
 
       - name: 🛠 Debug - List downloaded files
         run: ls -la
-      
+
       - name: 📢 Create GitHub Release & Upload Assets
         uses: softprops/action-gh-release@v2
         with:
